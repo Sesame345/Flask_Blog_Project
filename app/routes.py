@@ -107,7 +107,7 @@ def new_post():
  form = PostForm()
  map_class = "map_2"
  if form.validate_on_submit():
-   post= Post(title=form.title.data, content=form.content.data,author= current_user)
+   post= Post(title=form.title.data, content=form.content.data,lat=form.lat.data,lng=form.lng.data ,author= current_user)
    db.session.add(post)
    db.session.commit()
    flash('your Post has been created!', 'success')
@@ -116,8 +116,9 @@ def new_post():
        
 @app.route("/post/<int:post_id>")
 def post(post_id):
+   map_class = "map_3"
    post= Post.query.get_or_404(post_id)
-   return render_template('post.html', title=post.title, post=post)
+   return render_template('post.html', title=post.title, post=post,map_class= map_class )
 
 @app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
 @login_required
@@ -126,16 +127,21 @@ def update_post(post_id):
     if post.author != current_user:
         abort(403)
     form = PostForm()
+    map_class = "map_3"
     if form.validate_on_submit():
         post.title = form.title.data
         post.content = form.content.data
+        post.lat = form.lat.data
+        post.lng = form.lng.data
+
+        
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
-    return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
+    return render_template('create_post.html', title='Update Post', form=form, legend='Update Post',map_class= map_class)
 
 
 

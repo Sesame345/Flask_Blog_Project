@@ -24,11 +24,10 @@ class Post(db.Model):
  id = db.Column(db.Integer, primary_key =True)
  title= db.Column(db.String(100), nullable=False)
  date_posted= db.Column(db.DateTime,  nullable=False, default= datetime.utcnow)
-
  content = db.Column(db.Text, nullable=False)
  uder_id= db.Column (db.Integer, db.ForeignKey('user.id'),nullable=False )
- #lat= db.column(db.String(20))
- #long= db.column(db.String(20))
+ lat= db.Column(db.String(10))
+ lng= db.Column(db.String(10))
 
  def __repr__(self): 
    return f"Post('{self.title}', '{self.date_posted}', '{self.content}') "

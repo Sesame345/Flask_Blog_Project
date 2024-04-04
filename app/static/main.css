@@ -87,6 +87,13 @@ body {
   }
 
   .map_2 { height: 380px; 
+    margin-top: 20px;
     margin-bottom: 50px;
 
 }
+.map_3 { height: 280px; 
+         width: 820px;
+         margin-top: 20px;
+
+}
+
